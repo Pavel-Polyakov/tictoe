@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-main>
+      <Board v-if="game" :game="this.game" />
+      <Values v-if="game" :game="this.game" />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Board from "@/components/Board";
+import Values from "@/components/Values";
+import Game from "@/game.js";
 
 export default {
-  name: 'App',
+  name: "App",
+  props: {},
+  data() {
+    return {
+      game: null,
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    init() {
+      this.game = new Game();
+    },
+  },
   components: {
-    HelloWorld
-  }
-}
+    Board,
+    Values,
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+
