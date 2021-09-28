@@ -1,6 +1,6 @@
 class Cell {
   constructor() {
-    this.value = 0;
+    this.value = { id: 0, value: 0 };
     this.player = null;
   }
 
@@ -21,13 +21,63 @@ class Game {
       this.table.push(row);
     }
 
-    this.player = 0;
-    this.value = 1;
-
     this.player_values = {
-      0: [1, 2, 3, 4, 5],
-      1: [1, 2, 3, 4, 5],
+      0: [
+        {
+          value: 1,
+          id: 1,
+        },
+        {
+          value: 1,
+          id: 2,
+        },
+        {
+          value: 3,
+          id: 3,
+        },
+        {
+          value: 3,
+          id: 4,
+        },
+        {
+          value: 6,
+          id: 5,
+        },
+        {
+          value: 6,
+          id: 6,
+        },
+      ],
+      1: [
+        {
+          value: 1,
+          id: 1,
+        },
+        {
+          value: 1,
+          id: 2,
+        },
+        {
+          value: 3,
+          id: 3,
+        },
+        {
+          value: 3,
+          id: 4,
+        },
+        {
+          value: 6,
+          id: 5,
+        },
+        {
+          value: 6,
+          id: 6,
+        },
+      ],
     };
+
+    this.player = 0;
+    this.value = this.player_values[this.player][0];
 
     this.winner = null;
   }
@@ -47,6 +97,13 @@ class Game {
     this.value = value;
   }
 
+  removeItemMyIndex(items, i) {
+    return items.slice(0, i).concat(items.slice(i + 1, items.length));
+  }
+  removeItemByValue(items, v) {
+    return this.removeItemMyIndex(items, items.indexOf(v));
+  }
+
   press(row, column) {
     // if game already finished — alert
     if (this.winner) {
@@ -62,14 +119,15 @@ class Game {
     let cell = this.table[row][column];
     cell.press(this.value, this.player);
 
-    this.player_values[this.player] = this.player_values[this.player].filter(
-      (v) => v != this.value
+    this.player_values[this.player] = this.removeItemByValue(
+      this.player_values[this.player],
+      this.value
     );
 
-    if (this.player_values[0].length == 0) {
-      alert("the game is ended. refresh page for restart");
-      return;
-    }
+    // if (this.player_values[0].length == 0) {
+    //   alert("the game is ended. refresh page for restart");
+    //   return;
+    // }
 
     // check finishing
     // set this.winner if finished

@@ -1,6 +1,6 @@
 <template>
   <button :class="cellClass" v-on:click="click">
-    {{ value }}
+    {{ value.value }}
   </button>
 </template>
 
@@ -8,7 +8,7 @@
 import Game from "@/game.js";
 export default {
   props: {
-    value: Number,
+    value: Object,
     player: Number,
     row: Number,
     column: Number,
@@ -53,7 +53,7 @@ export default {
         classes.push("player_null");
       }
 
-      if (this.game.value <= this.value) {
+      if (this.game.value.value <= this.value.value) {
         classes.push("disabled");
       }
 

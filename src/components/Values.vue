@@ -3,16 +3,16 @@
     <v-btn
       text
       v-for="n in values"
-      :key="n"
-      :value="n"
+      :key="n.id"
+      :value="n.value"
       :color="color"
       v-on:click="click(n)"
     >
       <span v-if="selected(n)">
-        <h1>{{ n }}</h1>
+        <h1>{{ n.value }}</h1>
       </span>
       <span v-else>
-        {{ n }}
+        {{ n.value }}
       </span>
     </v-btn>
   </div>
